@@ -4,14 +4,14 @@ using namespace std;
 
 int main()
 {
-    int m,n;
+    int a,b;
     cout<<"Enter no. of rows: ";
-    cin>>m;
+    cin>>a;
     cout<<"Enter no. of columns: ";
-    cin>>n;
-    for (int i=0;i<m;i++){
-        for (int j=0;j<n;j++){
-            cout<<"*";
+    cin>>b;
+    for (int i=0;i<a;i++){
+        for (int j=0;j<b;j++){
+            cout<<char(65+j);
         }
         cout<<endl;
     }
