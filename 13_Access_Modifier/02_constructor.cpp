@@ -1,9 +1,9 @@
 #include<iostream>
 using namespace std;
 class Student{
-public:
+    public:
     string name;
-    int rollNo;
+    int rollNo;    
     
     Student(){}
     Student (string name,int rollNo,float marks){
@@ -17,13 +17,8 @@ public:
 private:
     float marks;
 };
-int main()
-{
-    Student s1;
-    s1.name = "Manav";
-    s1.rollNo = 58;
-    //s1.marks = 93.6; //Shows error as marks can't be assigned outside the class separately
+int main(){
+    Student s1("Manav",58,93.6); //marks can be given as it is a constructor inside class    
     s1.display();
-
     return 0;
 }
