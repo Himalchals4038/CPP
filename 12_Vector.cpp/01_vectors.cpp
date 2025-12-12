@@ -1,4 +1,4 @@
-#include<iostream>
+#include<bits/stdc++.h>
 using namespace std;
 
 /*Vector has 2 components - Size & Capacity
@@ -13,8 +13,11 @@ As elements are pushed into the vector array the system checks if size is less t
 If size increases beyond capacity limit, the capacity is doubled till size is reached, then the process repeats 
 */
 
+class Car{
+
+};
 int main()
 {
-    
+    vector<Car> v1; //Initializer sequence for a vector
     return 0;
 }
