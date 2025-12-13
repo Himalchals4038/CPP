@@ -11,27 +11,26 @@ string decToBin(int a){
 
     string s;
     while (tmp>0){
-        s.push_back((tmp % 2)?'1':'0');
+        s.push_back((tmp%2)?'1':'0');
         tmp/=2;
     }
     reverse(s.begin(),s.end());
     if (!neg) return s;
 
-    const unsigned INT_WIDTH = sizeof(int) * 8;
-    unsigned w = 1;
-    for (;w<=INT_WIDTH;++w) {
-        long long min_val = -(1LL<<(w-1));
-        if (a>=min_val) break;
+    int width = sizeof(int)*8;
+    int w=1;
+    for (;w<=width;++w){
+        int min = -(1<<(w-1));
+        if (a>=min) break;
     }
-    if (w>INT_WIDTH) w=INT_WIDTH;
-
-    int mask = (w==64)?~0ULL:((1ULL<<w)-1ULL);
-    int u = (static_cast<int>(a))&mask;
+    if (w>width) w=width;
+    int mask=(w==64)?~0:((1<<w)-1);
+    int u=(static_cast<int>(a))&mask;
 
     string out;
     out.reserve(w);
     for (int i=(int)w-1;i>=0;--i){
-        out.push_back(((u>>i)&1ULL)?'1':'0');
+        out.push_back(((u>>i)&1)?'1':'0');
     }
     return out;
 }
