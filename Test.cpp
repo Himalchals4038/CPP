@@ -2,27 +2,31 @@
 using namespace std;
 class Solution {
 public:
-    vector<int> twoSum(vector<int>& nums, int target) {
-        vector<int> vec1(2,0);
-        int a=0;
-        for (int i=0;i<(sizeof(nums)/sizeof(nums[0]));i++){
-            for (int j=0;j<(sizeof(nums)/sizeof(nums[0]));j++){
-                if (j==i) continue;
-                if ((nums[i]+nums[j])==target){
-                    a=1;
-                    vec1.push_back(i);
-                    vec1.push_back(j);
-                    break;
-                }
+    vector<int> plusOne(vector<int>& digits) {
+        int n = digits.size();
+        for (int i=n-1; i>=0;--i){
+            if (digits[i]<9){
+                ++digits[i];
+                return digits;
             }
-            if (a==1) break;
+            digits[i]=0;
         }
-        return vec1;
+        digits.insert(digits.begin(), 1);
+        return digits;
     }
 };
-int main(){
-    vector<int> nums = {3,2,4};
-    int target = 6;
-    vector<int> result = Solution.twoSum(nums,target);
+
+int main() {
+    std::vector<int> nums = {9,1,4,5,3,9,0,1,9,5,1,8,6,7,0,5,5,9,9};
+    Solution sol;
+    vector<int> so = sol.plusOne(nums);
+
+    cout << '[';
+    for (size_t i = 0; i < so.size(); ++i) {
+        cout << so[i];
+        if (i + 1 < so.size()) cout << ",";
+    }
+    cout << ']' << endl;
     return 0;
 }
+
