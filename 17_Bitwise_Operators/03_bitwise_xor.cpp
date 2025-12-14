@@ -7,3 +7,6 @@ int main()
     cout<<(4 ^ 8)<<endl;
     return 0;
 }
+//a ^ a = 0
+//a ^ 0 = a
+// a^b^a = a^a^b = 0^b = b

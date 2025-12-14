@@ -1,4 +1,5 @@
-#include<bits/stdc++.h>
+#include<iostream>
+#include<vector>
 using namespace std;
 
 /*Vector has 2 components - Size & Capacity
@@ -13,11 +14,18 @@ As elements are pushed into the vector array the system checks if size is less t
 If size increases beyond capacity limit, the capacity is doubled till size is reached, then the process repeats 
 */
 
-class Car{
+int main(){    
+    vector<int> vec1; //Method of declaring a vector without any value allocation
 
-};
-int main()
-{
-    vector<Car> v1; //Initializer sequence for a vector
+    vector<int> vec2 = {8,5,2}; //Creating vector of size 3 and allocating 3 values in them
+    cout<<vec2[0]<<endl;
+    cout<<vec2[1]<<endl;
+    cout<<vec2[2]<<endl;
+    
+    vector<int> vec3 (3,0); //(No. of spaces formed, Value stored in each space)
+    cout<<vec3[0]<<endl;
+    cout<<vec3[1]<<endl;
+    cout<<vec3[2]<<endl;
+    
     return 0;
 }
