@@ -25,7 +25,7 @@ int main()
     // cout<<c2.name<<" "<<c2.runs<<" "<<c2.average<<endl;
     //c2 is not a variable name but an address, so it can't be called directly
     
-    cout<<(*c2).name<<" "<<(*c2).runs<<" "<<(*c2).average<<endl;
+    // cout<<(*c2).name<<" "<<(*c2).runs<<" "<<(*c2).average<<endl;
     cout<<c2->name<<" "<<c2->runs<<" "<<c2->average<<endl;
     return 0;
 }

@@ -52,26 +52,5 @@ int main()
     f1.savings = 2500000;
     f1.dream = "Build a house";
     
-    // cout << "Name: " << f1.name << endl;
-    // cout << "Company: " << f1.company << endl;
-    // cout << "Domain: " << f1.domain << endl;
-    // cout << "Salary: " << f1.salary << endl;
-    // cout << "Experience: " << f1.experience << " years" << endl;
-    
-    // cout << "Father Name: " << f1.fatherName << endl;
-    // cout << "Mother Name: " << f1.motherName << endl;
-    // cout << "Address: " << f1.address << endl;
-    
-    // cout << "Wife Name: " << f1.wifeName << endl;
-    // cout << "Years Married: " << f1.years << endl;
-    // cout << "Wife Salary: " << f1.wifeSalary << endl;
-    
-    // cout << "Number of Children: " << f1.num << endl;
-    // cout << "School Fees: " << f1.schoolFees << endl;
-    // cout << "College Fees: " << f1.collegeFees << endl;
-    
-    // cout << "Savings: " << f1.savings << endl;
-    // cout << "Dream: " << f1.dream << endl;
-    
     return 0;
 }

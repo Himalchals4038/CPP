@@ -1,0 +1,12 @@
+int x -> 4 bytes = 32 bits
+Range: (2^31-1) to (-2^31)
+
+long long int x -> 8 bytes = 64 bits
+Range: (2^63-1) to (-2^63)
+
+short int x -> 2 bytes = 16 bits
+Range: (2^15-1) to (-2^15)
+
+Signed int -> Can accept both +ve & -ve values
+Unsigned int -> Can only accept +ve values
+
