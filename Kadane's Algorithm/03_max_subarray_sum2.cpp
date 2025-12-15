@@ -3,15 +3,12 @@ using namespace std;
 
 int main(){
     vector<int> vec = {3,-4,5,4,-1,7,-8};
-    int maxSum = INT_MIN, curSum;
+    int maxSum = INT_MIN, curSum=0;
     for (int i=0;i<vec.size();i++){
-        curSum = 0;
-        for (int j=i;j<vec.size();j++){
-            curSum += vec[j];
-            maxSum = max(curSum,maxSum);
+        curSum += vec[i];
+        maxSum = max(curSum,maxSum);
+        if (curSum<0) curSum = 0;
         }
-        // cout<<curSum<<endl;
-    }
     cout<<"Maximum Sum Value: "<<maxSum<<endl;
     return 0;
 }
