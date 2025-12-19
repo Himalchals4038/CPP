@@ -15,7 +15,7 @@ int pos(int *arr, int size, int n){
         else if (arr[mid]<n) a = mid+1;
         else size = mid-1;
     }
-    return mid;
+    return -1;
 }
 int main(){
     int arr[] = {18, 26, 35, 49, 72, 16, 82, 46, 55, 37, 96, 80};
