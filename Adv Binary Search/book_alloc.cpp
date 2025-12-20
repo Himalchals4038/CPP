@@ -14,7 +14,6 @@ bool isValid(vector<int> &vec, int n, int m, int max){
 }
 int alloc(vector<int>& vec, int n, int m){
     if(m > n) return -1;
-    sort(vec.begin(), vec.end());
     int st = 0, end = accumulate(vec.begin(), vec.end(), 0), ans = -1;
     while (st <= end){
         int mid = st + (end-st)/2;
