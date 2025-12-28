@@ -5,7 +5,11 @@ using namespace std;
 int main(){
     vector<int> vec = {5,4,2,3,6,8,1,9};
     cout<<"First Element: "<<*(vec.begin())<<endl;
+    
+    //Both + and next operators can be used for vectors
     cout<<"Last Element: "<<*(vec.end()-1)<<endl;
+    cout<<"Last Element: "<<*(next(vec.end(),-1))<<endl;
+    
     cout<<"Next to Last Element: "<<*(vec.end())<<endl;
     return 0;
 }

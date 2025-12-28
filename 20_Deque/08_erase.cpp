@@ -6,11 +6,11 @@ int main(){
     copy(dq1.begin(), dq1.end(), ostream_iterator<int>(cout, " "));
     cout<<endl;
     
-    dq1.erase(dq1.begin()); //Removes first element
+    dq1.erase(dq1.begin());
     copy(dq1.begin(), dq1.end(), ostream_iterator<int>(cout, " "));
     cout<<endl;
 
-    dq1.erase(next(dq1.begin(), 2)); //Removes third element
+    dq1.erase(dq1.begin()+2);
     copy(dq1.begin(), dq1.end(), ostream_iterator<int>(cout, " "));
     cout<<endl;
 
