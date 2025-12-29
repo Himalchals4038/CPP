@@ -13,9 +13,6 @@ int main(){
     pq1.push(60);
     pq1.push(43);
 
-    while(!pq1.empty()){
-        cout<<pq1.top()<<" ";
-        pq1.pop();
-    }
+    for(auto pq = pq1; !pq.empty(); pq.pop()) cout<<pq.top()<<" ";
     return 0;
 }

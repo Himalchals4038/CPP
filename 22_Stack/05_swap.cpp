@@ -22,9 +22,10 @@ int main(){
     st2.pop();
     st2.pop();
 
-    while(!st2.empty()){
-        cout<<st2.top()<<" ";
-        st2.pop();
-    }
+    // while(!st2.empty()){
+    //     cout<<st2.top()<<" ";
+    //     st2.pop();
+    // }
+    for(;!st2.empty(); st2.pop()); cout<<st2.top()<<" ";
     return 0;
 }

@@ -7,12 +7,13 @@ int main(){
     q1.push(98);
     q1.push(74);
     q1.push(65);
-    for (auto q = q1; !q.empty(); q.pop()) cout << q.front() << " ";
-    cout<<endl;
+    q1.push(21);
+    q1.push(17);
+    q1.push(58);
+    q1.push(37);
 
-    //Alternate way to display elements of the queue
     vector<int> v;
     for(auto q = q1; !q.empty(); q.pop()) v.push_back(q.front());
-    copy(v.begin(), v.end(), ostream_iterator<int>(cout, " "));
+    copy(v.rbegin(), v.rend(), ostream_iterator<int>(cout, " "));
     return 0;
 }
