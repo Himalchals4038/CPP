@@ -11,8 +11,9 @@ int main(){
     mp1[5] = "Five";
     for (auto& [key,val]:mp1) cout<<key<<" "<<val<<endl;
 
+    //Returns iterator of key & value if found, else returns same for the after last element
     auto it = mp1.find(3);
-    if (it != mp1.end()) cout << "Found key " << it->first << " with value: " << it->second << endl;
-    else cout << "Key not found" << endl;
+    if (it != mp1.end())cout<<"Found key "<<it->first<<" with value: "<<it->second<<endl;
+    else cout<<"Key not found"<<endl;
     return 0;
 }

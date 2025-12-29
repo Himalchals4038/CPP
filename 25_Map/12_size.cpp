@@ -6,12 +6,10 @@ int main(){
     mp1[0] = "Zero";
     mp1[1] = "One";
     mp1[2] = "Two";
-
-    //Returns no. of keys of that present in the map
-    cout<<"Count of 0: "<<mp1.count(0)<<endl;
-    cout<<"Count of 3: "<<mp1.count(3)<<endl;
-    //Returns 0/1 for maps, can return >1 for multimaps
-    
+    mp1[3] = "Two";
     for (auto& [key,val]:mp1) cout<<key<<" "<<val<<endl;
+
+    //Returns no. of keys present in the map (even if some keys point to the same value)
+    cout<<"Size: "<<mp1.size()<<endl;
     return 0;
 }
