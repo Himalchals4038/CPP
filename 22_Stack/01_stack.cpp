@@ -8,5 +8,6 @@ int main(){
     st1.push(65);
 
     cout<<"Topmost element: "<<st1.top()<<endl;
+    for (auto s = st1; !s.empty(); s.pop()) cout << s.top() << " ";
     return 0;
 }

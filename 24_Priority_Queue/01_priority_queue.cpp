@@ -9,6 +9,7 @@ int main(){
 
     cout << "Top Element: " << pq1.top() << endl;
     //Priority Queue can't display bottom most element
-
+    
+    for (auto pq = pq1; !pq.empty(); pq.pop()) cout << pq.top() << " ";
     return 0;
 }
