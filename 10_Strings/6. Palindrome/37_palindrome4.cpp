@@ -2,13 +2,13 @@
 using namespace std;
 
 void isPalindrome(string str){
-    for (int start=0, end=str.length()-1; start<end; ) {
+    for (int start = 0, end = str.length() - 1; start < end; ) {
         if (!isalnum(str[start])) start++;
         else if (!isalnum(str[end])) end--;
-        else if (tolower(str[start]) != tolower(str[end])){
+        else if (tolower(str[start]) != tolower(str[end])) {
             cout<<"Not Palindrome"<<endl;
             return;
-        } else{
+        } else {
             start++;
             end--;
         }
