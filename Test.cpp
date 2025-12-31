@@ -1,10 +1,12 @@
-#include <iostream>
-#include <format>  // <--- Use this header instead of <print>
+#include<iostream>
 
 int main() {
-    // 1. std::format creates the formatted string (works in C++20/23)
-    // 2. std::cout prints it (works everywhere)
-    std::cout << std::format("Hello C++23! The version is {}\n", 2023);
-
-    return 0;
+    if (__cplusplus == 202302L) std::cout << "C++23";
+    else if (__cplusplus == 202002L) std::cout << "C++20";
+    else if (__cplusplus == 201703L) std::cout << "C++17";
+    else if (__cplusplus == 201402L) std::cout << "C++14";
+    else if (__cplusplus == 201103L) std::cout << "C++11";
+    else if (__cplusplus == 199711L) std::cout << "C++98";
+    else std::cout << "pre-standard C++." << __cplusplus;
+    std::cout << "\n";
 }
