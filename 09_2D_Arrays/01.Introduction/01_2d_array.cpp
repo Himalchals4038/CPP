@@ -1,10 +1,9 @@
 #include<iostream>
 using namespace std;
 
-int main()
-{
+int main(){
     int arr[2][3];
-    //creates a matrix with 8 rows and 6 columns
+    //creates a matrix with 2 rows and 3 columns
     arr[0][0] = 15; //value assignment
     arr[0][1] = 44;
     arr[0][2] = 28;

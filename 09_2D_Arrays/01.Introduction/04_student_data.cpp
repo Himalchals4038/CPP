@@ -1,8 +1,7 @@
 #include<iostream>
 using namespace std;
 
-int main()
-{
+int main(){
     int st[2][4];
     char a;
     while (true){

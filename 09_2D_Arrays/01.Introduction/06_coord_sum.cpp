@@ -8,12 +8,13 @@ int main(){
     cin>>a>>b;
     cout<<"Enter coordinates of second point: ";
     cin>>c>>d;
-    int sum=0;
-    for (int i=a-1;i<c;i++){
-        for (int j=b-1;j<d;j++){
-            sum+=arr[i][j];
-        }
-    }
+    // int sum=0;
+    // for (int i=a-1;i<c;i++){
+    //     for (int j=b-1;j<d;j++){
+    //         sum+=arr[i][j];
+    //     }
+    // }
+    int sum = arr[a][b]+arr[c][d];
     cout<<"Sum: "<<sum;
     return 0;
 }
