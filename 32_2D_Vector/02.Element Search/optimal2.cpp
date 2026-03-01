@@ -1,15 +1,23 @@
 #include <bits/stdc++.h>
 using namespace std;
-bool binarySearch(const vector<vector<int>>& arr, int n){
+bool binarySearch(vector<vector<int>>& arr, int n){
     if (arr.empty() || arr[0].empty()) return false;
     int rows = arr.size();
     int cols = arr[0].size();
-    int low = 0, high = rows*cols-1;
+    int targetRow = -1;
+    int low = 0, high = rows-1;
     while(low <= high){
         int mid = low + (high-low)/2;
-        int val = arr[mid/cols][mid%cols];
-        if (val==n) return true;
-        if (val<n) low = mid+1;
+        if (arr[mid][0]<=n && arr[mid][cols-1]>=n) targetRow = mid;
+        if (arr[mid][0]>n) high = mid-1;
+        else low = mid+1;
+    }
+    if (targetRow==-1) return false;
+    low = 0, high = cols-1;
+    while(low <= high){
+        int mid = low + (high-low)/2;
+        if (arr[targetRow][mid]==n) return true;
+        if (arr[targetRow][mid]<n) low = mid+1;
         else high = mid-1;
     }
     return false;
