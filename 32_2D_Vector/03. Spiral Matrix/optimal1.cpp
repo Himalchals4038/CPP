@@ -5,6 +5,7 @@ vector<int> spiral(const vector<vector<int>>& vec){
     if(vec.empty()) return ans;
     int rows = vec.size();
     int cols = vec[0].size();
+    ans.reserve(rows * cols);
     int srow = 0, scol = 0, erow = rows-1, ecol = cols-1;
     while(srow<=erow && scol<=ecol){
         for (int i=scol; i<=ecol; i++) ans.push_back(vec[srow][i]);
