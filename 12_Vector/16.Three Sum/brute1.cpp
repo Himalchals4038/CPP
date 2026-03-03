@@ -1,17 +1,15 @@
 #include <bits/stdc++.h>
 using namespace std;
 bool twoSum(vector<int> &vec, int n){
-    sort(vec.begin(),vec.end());
-    int low = 0, high = vec.size()-1;
-    while(low<high){
-        if(vec[low]+vec[high]==n) return true;
-        else if(vec[low]+vec[high]>n) high--;
-        else low++;
+    for(int i=0; i<vec.size()-1; i++){
+        for(int j=i+1; j<vec.size(); j++){
+            for (int k = j+1; k < vec.size(); k++) if(vec[i]+vec[j]+vec[k] == n) return true;
+        }
     }
     return false;
 }
 int main(){
-    vector<int> vec = {5,2,11,7,15};
+    vector<int> vec = {-1,0,1,2,-1,-4};
     int n;
     cout<<"Enter Target: "<<endl;
     cin>>n;
