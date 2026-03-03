@@ -16,7 +16,7 @@ vector<vector<int>> threeSum(vector<int> &vec, int n){
 
         while (low<high){
             long long current_sum = (long long)vec[i]+vec[low]+vec[high];
-            if (current_sum == n) {
+            if (current_sum == n){
                 ans.push_back({vec[i], vec[low], vec[high]});
                 low++;
                 high--;
@@ -32,12 +32,12 @@ vector<vector<int>> threeSum(vector<int> &vec, int n){
 int main(){
     vector<int> vec = {5,2,11,7,15,8,13,4,16,17,3};
     int n;
-    cout<<"Enter Target: "<<endl;
+    cout<<"Enter Target: ";
     cin>>n;
     vector<vector<int>> ans = threeSum(vec,n);
-    for (auto& triplet : ans) {
-        for (auto& num : triplet) cout << num << " ";
-        cout << endl;
+    for (auto& triplet : ans){
+        for (auto& num : triplet) cout<<num<<" ";
+        cout<<endl;
     }
     return 0;
 }

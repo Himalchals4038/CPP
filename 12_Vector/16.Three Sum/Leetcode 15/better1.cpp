@@ -1,8 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 vector<vector<int>> threeSum(vector<int> &vec, int n){
-    sort(vec.begin(), vec.end());
+    if (vec.size() < 3) return {};
     vector<vector<int>> ans;
+    set<vector<int>> uniqueTrips;
     for (int i=0; i<vec.size(); ++i){
         if (i>0 && vec[i] == vec[i-1]) continue;
         int low = i+1;
@@ -11,7 +12,12 @@ vector<vector<int>> threeSum(vector<int> &vec, int n){
         while (low<high){
             int current_sum = vec[i]+vec[low]+vec[high];
             if (current_sum == n) {
-                ans.push_back({vec[i], vec[low], vec[high]});
+                vector<int> trip = {vec[i], vec[low], vec[high]};
+                sort(trip.begin(),trip.end());
+                if (uniqueTrips.find(trip)==uniqueTrips.end()){
+                    uniqueTrips.insert(trip);
+                    ans.push_back(trip);
+                }
                 low++;
                 high--;
                 while (low<high && vec[low]==vec[low-1]) low++;
