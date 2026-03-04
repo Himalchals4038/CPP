@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-bool twoSum(vector<int> &vec, int n){
+bool threeSum(vector<int> &vec, int n){
     for(int i=0; i<vec.size()-1; i++){
         for(int j=i+1; j<vec.size(); j++){
             for (int k = j+1; k < vec.size(); k++) if(vec[i]+vec[j]+vec[k] == n) return true;
@@ -13,6 +13,6 @@ int main(){
     int n;
     cout<<"Enter Target: "<<endl;
     cin>>n;
-    (twoSum(vec,n)) ? cout<<"True" : cout<<"False";
+    (threeSum(vec,n)) ? cout<<"True" : cout<<"False";
     return 0;
 }

@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-vector<int> twoSum(vector<int> &vec, int n){
+vector<int> threeSum(vector<int> &vec, int n){
     for(int i=0; i<vec.size()-1; i++){
         for(int j=i+1; j<vec.size(); j++){
             for (int k = j+1; k < vec.size(); k++){
@@ -17,7 +17,7 @@ int main(){
     int n;
     cout<<"Enter Target: "<<endl;
     cin>>n;
-    vector<int> ans = twoSum(vec,n);
+    vector<int> ans = threeSum(vec,n);
     copy(ans.begin(), ans.end(), ostream_iterator<int>(cout, " "));
     return 0;
 }
