@@ -12,6 +12,7 @@ void solve(vector<vector<int>> &maze, int row, int col, string path, vector<stri
     solve(maze,row-1,col,path+"U",ans,visited);
     solve(maze,row,col+1,path+"R",ans,visited);
     solve(maze,row,col-1,path+"L",ans,visited);
+    visited[row][col] = false;
     return;
 }
 vector<string> findPath(vector<vector<int>> &maze){
@@ -22,8 +23,11 @@ vector<string> findPath(vector<vector<int>> &maze){
     return ans;
 }
 int main(){
-    vector<vector<int>> maze = {{1,0,0,0},{1,1,0,1},{0,1,0,0},{1,1,1,1}};
+    vector<vector<int>> maze = {{1,0,0,0},{1,1,0,1},{1,1,0,0},{0,1,1,1}};
     vector<string> ans = findPath(maze);
-    for (string str : ans) cout<<str<<" ";
+    for (string str : ans){
+        cout<<str<<" ";
+        cout<<endl;
+    }
     return 0;
 }
