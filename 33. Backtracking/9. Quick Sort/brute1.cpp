@@ -9,6 +9,8 @@ int partition (vector<int> &vec, int start, int end){
             swap(vec[idx],vec[i]);
         }
     }
+    idx++;
+    swap(vec[idx], vec[end]);
     return idx;
 }
 void qSort(vector<int> &vec, int start, int end){
