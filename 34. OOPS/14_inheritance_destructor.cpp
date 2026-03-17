@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+using namespace std;
+class Person{
+public:
+    string name;
+    int age;
+    Person(){
+        cout<<"Parent Constructor"<<endl;
+    }
+    ~Person(){
+        cout<<"Initiating Parent Destructor...."<<endl;
+    }
+};
+class Student: public Person{
+public:
+    int rollNo;
+    Student(string name, int age, int rollNo){
+        cout<<"Child Constructor"<<endl;
+        this->name = name;
+        this->age = age;
+        this->rollNo = rollNo;
+    }
+    void getInfo(){
+        cout<<"Name: "<<name<<endl;
+        cout<<"Age: "<<age<<endl;
+        cout<<"Roll No: "<<rollNo<<endl;
+    }
+    ~Student(){
+        cout<<"Initiating Child Destructor...."<<endl;
+    }
+};
+int main(){
+    Student s1("Sajal",21,57);
+    s1.getInfo();
+    return 0;
+}
