@@ -20,7 +20,7 @@ public:
     void push_back(int val){
         Node* newNode = new Node(val);
         if (head == NULL){
-            head= newNode;
+            head = newNode;
             tail = newNode;
         }
         else{

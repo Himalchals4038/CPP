@@ -18,10 +18,6 @@ public:
         tail = NULL;
     }
     void push_front(int val){
-        //static, not preferred
-        //Node newNode(val);
-        
-        //dynamic, preferred
         Node* newNode = new Node(val);
         if (head == NULL){
             head = newNode;
