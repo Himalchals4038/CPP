@@ -4,47 +4,50 @@ class Node{
 public:
     int data;
     Node* next;
-    Node* prev;
-    Node (int val){
+    Node(int val){
         data = val;
         next = NULL;
-        prev = NULL;
     }
 };
-class DoublyList{
+class CircularList{
     Node* head;
     Node* tail;
 public:
-    DoublyList(){
+    CircularList(){
         head = NULL;
         tail = NULL;
     }
-    void push_front(int val){
+    void insert_at_tail(int val){
         Node* newNode = new Node(val);
         if (head == NULL){
             head = newNode;
             tail = newNode;
+            tail->next = head;
         }
         else{
-            newNode->next = head;
-            head->prev = newNode;
-            head = newNode;
+            tail->next = newNode;
+            tail = newNode;
+            tail->next = head;
         }
     }
-    void print_list(){
+    void printList(){
+        if (head == NULL) return;
         Node* temp = head;
-        while (temp!= NULL){
+        while (temp != tail){
             cout<<temp->data<<"->";
             temp = temp->next;
         }
+        cout<<tail->data<<"->";
         cout<<"NULL"<<endl;
     }
 };
 int main(){
-    DoublyList dl1;
-    dl1.push_front(3);
-    dl1.push_front(6);
-    dl1.push_front(14);
-    dl1.print_list();    
+    CircularList cl1;
+    cl1.insert_at_tail(1);
+    cl1.insert_at_tail(2);
+    cl1.insert_at_tail(3);
+    cl1.insert_at_tail(4);
+    cl1.insert_at_tail(5);
+    cl1.printList();
     return 0;
 }
