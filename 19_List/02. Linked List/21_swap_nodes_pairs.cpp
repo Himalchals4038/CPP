@@ -17,28 +17,29 @@ public:
         head = NULL;
         tail = NULL;
     }
-    Node* reverseKGroup(Node* head, int k){
-        Node* temp = head;
-        int count = 0;
-        //check if k nodes exist
-        while(count<k){
-            if (temp == NULL) return head;
-            temp = temp->next;
-            count++;
+    Node* swapNodesPairs(Node* head){
+        if (head == NULL || head->next == NULL) return head;
+
+        Node* prev = NULL;
+        Node* first = head;
+        Node* second = head->next;
+
+        while (first != NULL && second != NULL){
+            Node* third = second->next;
+            second->next = first;
+            first->next = third;
+
+            if (prev != NULL) prev->next = second;
+            else head = second;
+
+            prev = first;
+            first = third;
+
+            if (third != NULL) second = third->next;
+            else second = NULL;
         }
-        //recursively call for rest of the Linked List
-        Node* prevNode = reverseKGroup(temp, k);
-        //reverse current group
-        temp = head;
-        count = 0;
-        while (count<k){
-            Node* next = temp->next;
-            temp->next = prevNode;
-            prevNode = temp;
-            temp = next;
-            count++;
-        }
-        return prevNode;
+
+        return head;
     }
     void push_pack(int val){
         Node* newNode = new Node(val);
