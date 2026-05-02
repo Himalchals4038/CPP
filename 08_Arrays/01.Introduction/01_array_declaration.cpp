@@ -1,8 +1,7 @@
 #include<iostream>
 using namespace std;
 
-int main()
-{
+int main(){
     int x[5]; //declaring an array
     x[0] = 63;
     x[1] = -55;

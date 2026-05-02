@@ -1,8 +1,7 @@
 #include<iostream>
 using namespace std;
 
-int main()
-{
+int main(){
     int arr[] = {7, 5, 4, 2, 8, 6, 3};
     int len = sizeof(arr)/sizeof(arr[0]);
     int arr1[7];

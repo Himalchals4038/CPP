@@ -6,8 +6,7 @@ void change1(int x){
 void change2(int arr[]){
     arr[3] = 15;
 } //pass by reference
-int main()
-{
+int main(){
     int x=3;
     cout<<x<<endl;
     change1(x);
