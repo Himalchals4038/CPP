@@ -42,16 +42,19 @@ public:
 
     void put(int key, int val){
         if (m.find(key) != m.end()){
-            Node* oldNode = m[key];
-            deleteNode(oldNode);
-            m.erase(key);
+            Node* existingNode = m[key];
+            existingNode->val = val;
+            deleteNode(existingNode);
+            addNode(existingNode);
+            return;
         }
         
         //Capacity reached
         if (m.size() == limit){
-            //Delete LRU data
-            m.erase(tail->prev->key);
-            deleteNode(tail->prev);
+            Node* lruNode = tail->prev;
+            m.erase(lruNode->key);
+            deleteNode(lruNode);
+            delete lruNode;
         }
 
         Node* newNode = new Node(key, val);
@@ -62,10 +65,8 @@ public:
     int get(int key){
         if (m.find(key) == m.end()) return -1;
         Node* node = m[key];
-        m.erase(key);
         deleteNode(node);
         addNode(node);
-        m[key] = node;
         return node->val;
     }
 };

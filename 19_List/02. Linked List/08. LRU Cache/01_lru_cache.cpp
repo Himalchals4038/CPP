@@ -49,7 +49,6 @@ public:
         
         //Capacity reached
         if (m.size() == limit){
-            //Delete LRU data
             m.erase(tail->prev->key);
             deleteNode(tail->prev);
         }

@@ -17,6 +17,7 @@ int main(){
     //Removes first element from the queue
     q1.pop();
     cout<<"First Element: "<<q1.front()<<endl;
+    cout<<"Last Element: "<<q1.back()<<endl;
     cout<<"Size of Queue: "<<q1.size()<<endl;
 
 

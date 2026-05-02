@@ -20,6 +20,7 @@ int main(){
     // }
     
     //Alternate one-liner syntax for the above while loop
+    // for (auto q = q2; !q.empty(); q.pop()) cout<<q.front()<<" ";
     for (; !q2.empty(); q2.pop()) cout<<q2.front()<<" ";
     cout<<"\n";
     cout<<"Is Empty(?): "<<(q2.empty() ? "Yes" : "No")<<endl;
