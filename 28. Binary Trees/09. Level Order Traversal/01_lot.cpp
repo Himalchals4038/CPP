@@ -20,6 +20,25 @@ Node* buildTree(const vector<int> &preorder){
     root->right = buildTree(preorder);
     return root;
 };
+vector<vector<int>> levelOrder(Node* root){
+    vector<vector<int>> ans;
+    if (root==NULL) return ans;
+    queue<Node*> q;
+    q.push(root);
+    while(!q.empty()){
+        int n = q.size();
+        vector<int> level;
+        for (int i=0; i<n; i++){
+            Node* node = q.front();
+            q.pop();
+            level.push_back(node->data);
+            if (node->left) q.push(node->left);
+            if (node->right) q.push(node->right);
+        }
+        ans.push_back(level);
+    }
+    return ans;
+}
 int main(){
     vector<int> preorder = {1, 2, -1, -1, 3, 4, -1, -1, 5, 7, -1, -1, 6, -1, 8, -1, -1};
 

@@ -20,8 +20,19 @@ Node* buildTree(const vector<int> &preorder){
     root->right = buildTree(preorder);
     return root;
 };
+static int ans = 0;
+int height(Node* root){
+    if (root==NULL) return 0;
+    int lh = height(root->left);
+    int rh = height(root->right);
+    ans = max(ans, lh+rh);
+    return 1+max(rh, lh);
+}
+int diam(Node* root){
+    height(root);
+    return ans;
+}
 int main(){
-    vector<int> preorder = {1, 2, -1, -1, 3, 4, -1, -1, 5, 7, -1, -1, 6, -1, 8, -1, -1};
 
     return 0;
 }
