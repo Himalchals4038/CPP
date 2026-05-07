@@ -20,6 +20,25 @@ Node* buildTree(const vector<int> &preorder){
     root->right = buildTree(preorder);
     return root;
 };
+vector<int> inorderTraversal(Node* root){
+    vector<int> ans;
+    if (root==NULL) return ans;
+    stack<Node*> st;
+    Node* curr = root;
+    while (curr!=NULL || !st.empty()){
+        while (curr!=NULL){
+            st.push(curr);
+            curr = curr->left;
+        }
+        if (!st.empty()){
+            curr = st.top();
+            st.pop();
+            ans.push_back(curr->data);
+            curr = curr->right;
+        }
+    }
+    return ans;
+}
 int main(){
     vector<int> preorder = {1,2,-1,-1,3,4,-1,-1,5,7,-1,-1,6,-1,8,-1,-1};
 
