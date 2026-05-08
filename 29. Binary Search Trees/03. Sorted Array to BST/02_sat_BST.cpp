@@ -20,25 +20,22 @@ Node* buildTree(const vector<int> &preorder){
     root->right = buildTree(preorder);
     return root;
 };
-void flatten (Node* root){
-    if (root==NULL) return;
-    flatten(root->left);
-    flatten(root->right);
-    if (root->left==NULL) return;
-    Node* temp = root->right;
-    root->right = root->left;
-    root->left = NULL;
-    Node* t = root->right;
-    while (t->right!=NULL) t = t->right;
-    t->right = temp;
+vector<int> inOrder(Node* root){
+    vector<int> ans;
+    if (root==NULL) return ans;
+    vector<int> left = inOrder(root->left);
+    vector<int> right = inOrder(root->right);
+    ans.insert(ans.end(), left.begin(), left.end());
+    ans.push_back(root->data);
+    ans.insert(ans.end(), right.begin(), right.end());
+    return ans;
+}
+Node* sortedArrayToBST(vector<int> &ans){
+    if (ans.size()==0) return NULL;
+    return buildTree(ans);
 }
 int main(){
     vector<int> preorder = {1,2,-1,-1,3,4,-1,-1,5,7,-1,-1,6,-1,8,-1,-1};
-    Node* root = buildTree(preorder);
-    flatten(root);
-    while (root){
-        cout<<root->data<<" ";
-        root = root->right;
-    }
+
     return 0;
 }

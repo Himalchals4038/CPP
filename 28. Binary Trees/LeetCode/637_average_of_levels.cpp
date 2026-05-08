@@ -20,25 +20,27 @@ Node* buildTree(const vector<int> &preorder){
     root->right = buildTree(preorder);
     return root;
 };
-void flatten (Node* root){
-    if (root==NULL) return;
-    flatten(root->left);
-    flatten(root->right);
-    if (root->left==NULL) return;
-    Node* temp = root->right;
-    root->right = root->left;
-    root->left = NULL;
-    Node* t = root->right;
-    while (t->right!=NULL) t = t->right;
-    t->right = temp;
+vector<double> averageOfLevels(Node* root){
+    vector<double> ans;
+    if (root==NULL) return ans;
+    queue<Node*> q;
+    q.push(root);
+    while(!q.empty()){
+        int n = q.size();
+        double sum = 0;
+        for (int i=0; i<n; i++){
+            Node* node = q.front();
+            q.pop();
+            sum+=node->data;
+            if (node->left) q.push(node->left);
+            if (node->right) q.push(node->right);
+        }
+        ans.push_back(sum / n);
+    }
+    return ans;
 }
 int main(){
     vector<int> preorder = {1,2,-1,-1,3,4,-1,-1,5,7,-1,-1,6,-1,8,-1,-1};
-    Node* root = buildTree(preorder);
-    flatten(root);
-    while (root){
-        cout<<root->data<<" ";
-        root = root->right;
-    }
+
     return 0;
 }

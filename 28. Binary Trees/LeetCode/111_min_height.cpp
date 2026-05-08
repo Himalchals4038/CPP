@@ -20,25 +20,15 @@ Node* buildTree(const vector<int> &preorder){
     root->right = buildTree(preorder);
     return root;
 };
-void flatten (Node* root){
-    if (root==NULL) return;
-    flatten(root->left);
-    flatten(root->right);
-    if (root->left==NULL) return;
-    Node* temp = root->right;
-    root->right = root->left;
-    root->left = NULL;
-    Node* t = root->right;
-    while (t->right!=NULL) t = t->right;
-    t->right = temp;
+int minDepth(Node* root){
+    if (root==NULL) return 0;
+    int l = minDepth(root->left);
+    int r = minDepth(root->right);
+    if (l == 0 || r == 0) return 1 + max(l, r);
+    return 1 + min(l, r);
 }
 int main(){
     vector<int> preorder = {1,2,-1,-1,3,4,-1,-1,5,7,-1,-1,6,-1,8,-1,-1};
-    Node* root = buildTree(preorder);
-    flatten(root);
-    while (root){
-        cout<<root->data<<" ";
-        root = root->right;
-    }
+
     return 0;
 }

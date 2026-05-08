@@ -20,25 +20,19 @@ Node* buildTree(const vector<int> &preorder){
     root->right = buildTree(preorder);
     return root;
 };
-void flatten (Node* root){
-    if (root==NULL) return;
-    flatten(root->left);
-    flatten(root->right);
-    if (root->left==NULL) return;
-    Node* temp = root->right;
-    root->right = root->left;
-    root->left = NULL;
-    Node* t = root->right;
-    while (t->right!=NULL) t = t->right;
-    t->right = temp;
+bool validate(Node* root, Node*& prev){
+    if (root==NULL) return true;
+    if (!validate(root->left, prev)) return false;
+    if (prev!=NULL && root->data<=prev->data) return false;
+    prev = root;
+    return validate(root->right, prev);
+}
+bool isValidBST(Node* root){
+    Node* prev = NULL;
+    return validate(root, prev);
 }
 int main(){
     vector<int> preorder = {1,2,-1,-1,3,4,-1,-1,5,7,-1,-1,6,-1,8,-1,-1};
-    Node* root = buildTree(preorder);
-    flatten(root);
-    while (root){
-        cout<<root->data<<" ";
-        root = root->right;
-    }
+
     return 0;
 }
