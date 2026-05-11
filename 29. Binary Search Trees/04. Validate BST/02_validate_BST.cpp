@@ -11,15 +11,17 @@ public:
         right = NULL;
     }
 };
-static int idx = -1;
-Node* buildTree(const vector<int> &preorder){
-    idx++;
-    if (preorder[idx] == -1) return NULL;
-    Node* root = new Node(preorder[idx]);
-    root->left = buildTree(preorder);
-    root->right = buildTree(preorder);
+Node* insert (Node* root, int val){
+    if (root==NULL) return new Node(val);
+    if (val<root->data) root->left = insert(root->left, val);
+    else root->right = insert(root->right, val);
     return root;
-};
+}
+Node* buildBST(vector<int> &vec){
+    Node* root = NULL;
+    for(int val : vec) root = insert(root, val);
+    return root;
+}
 bool validate(Node* root, Node* min, Node* &max){
     if (root==NULL) return true;
     if (min!=NULL && root->data<=min->data) return false;

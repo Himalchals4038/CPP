@@ -32,17 +32,33 @@ vector<int> inOrder(Node* root){
     ans.insert(ans.end(), right.begin(), right.end());
     return ans;
 }
-Node* sortedArrayToBST(vector<int> &ans){
-    if (ans.empty()) return NULL;
-    function<Node*(int,int)> build = [&](int left, int right) -> Node*{
-        if (left > right) return NULL;
-        int mid = left+(right-left)/2;
-        Node* root = new Node(ans[mid]);
-        root->left = build(left,mid-1);
-        root->right = build(mid+1,right);
+Node* mergeBST(Node* root1, Node* root2){
+    if (root1==NULL) return root2;
+    if (root2==NULL) return root1;
+
+    function<void(Node*, vector<int>&)> getInOrder = [&](Node* root, vector<int>& ans) {
+        if (root == NULL) return;
+        getInOrder(root->left, ans);
+        ans.push_back(root->data);
+        getInOrder(root->right, ans);
+    };
+
+    vector<int> inOrder1, inOrder2;
+    getInOrder(root1, inOrder1);
+    getInOrder(root2, inOrder2);
+    vector<int> merged;
+    merge(inOrder1.begin(), inOrder1.end(), inOrder2.begin(), inOrder2.end(), back_inserter(merged));
+
+    function<Node*(int, int)> buildBST = [&](int start, int end) -> Node*{
+        if (start>end) return NULL;
+        int mid = start+(end-start)/2;
+        Node* root = new Node(merged[mid]);
+        root->left = buildBST(start,mid-1);
+        root->right = buildBST(mid+1,end);
         return root;
     };
-    return build(0,ans.size()-1);
+    
+    return buildBST(0, merged.size() - 1);
 }
 int main(){
     vector<int> preorder = {1,2,-1,-1,3,4,-1,-1,5,7,-1,-1,6,-1,8,-1,-1};

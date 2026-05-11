@@ -22,6 +22,16 @@ Node* buildBST(vector<int> &vec){
     for(int val : vec) root = insert(root, val);
     return root;
 }
+vector<int> inOrder(Node* root){
+    vector<int> ans;
+    if (root==NULL) return ans;
+    vector<int> left = inOrder(root->left);
+    vector<int> right = inOrder(root->right);
+    ans.insert(ans.end(), left.begin(), left.end());
+    ans.push_back(root->data);
+    ans.insert(ans.end(), right.begin(), right.end());
+    return ans;
+}
 int main(){
     vector<int> vec = {3,2,1,5,6,4};
     Node* root = buildBST(vec);

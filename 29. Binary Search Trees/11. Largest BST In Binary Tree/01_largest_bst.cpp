@@ -32,20 +32,17 @@ vector<int> inOrder(Node* root){
     ans.insert(ans.end(), right.begin(), right.end());
     return ans;
 }
-Node* sortedArrayToBST(vector<int> &ans){
-    if (ans.empty()) return NULL;
-    function<Node*(int,int)> build = [&](int left, int right) -> Node*{
-        if (left > right) return NULL;
-        int mid = left+(right-left)/2;
-        Node* root = new Node(ans[mid]);
-        root->left = build(left,mid-1);
-        root->right = build(mid+1,right);
-        return root;
-    };
-    return build(0,ans.size()-1);
+int maxSumBST(Node* root){
+    if (root==NULL) return 0;
+    int left = maxSumBST(root->left);
+    int right = maxSumBST(root->right);
+    vector<int> ans = inOrder(root);
+    int sum = 0;
+    for (int i=0; i<ans.size(); i++) sum+=ans[i];
+    return max(sum, max(left, right));
 }
 int main(){
-    vector<int> preorder = {1,2,-1,-1,3,4,-1,-1,5,7,-1,-1,6,-1,8,-1,-1};
-
+    vector<int> vec = {3,2,1,5,6,4};
+    Node* root = buildBST(vec);
     return 0;
 }

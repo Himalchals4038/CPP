@@ -32,17 +32,16 @@ vector<int> inOrder(Node* root){
     ans.insert(ans.end(), right.begin(), right.end());
     return ans;
 }
-Node* sortedArrayToBST(vector<int> &ans){
-    if (ans.empty()) return NULL;
-    function<Node*(int,int)> build = [&](int left, int right) -> Node*{
-        if (left > right) return NULL;
-        int mid = left+(right-left)/2;
-        Node* root = new Node(ans[mid]);
-        root->left = build(left,mid-1);
-        root->right = build(mid+1,right);
-        return root;
-    };
-    return build(0,ans.size()-1);
+Node* bstHelper(vector<int> &preorder, int &idx, int bound){
+    if (idx >= preorder.size() || preorder[idx] > bound) return NULL;
+    Node* root = new Node(preorder[idx++]);
+    root->left = bstHelper(preorder, idx, root->data);
+    root->right = bstHelper(preorder, idx, bound);
+    return root;
+}
+Node* bstFromPreorder(vector<int> &preorder){
+    int idx = 0;
+    return bstHelper(preorder, idx, INT_MAX);
 }
 int main(){
     vector<int> preorder = {1,2,-1,-1,3,4,-1,-1,5,7,-1,-1,6,-1,8,-1,-1};

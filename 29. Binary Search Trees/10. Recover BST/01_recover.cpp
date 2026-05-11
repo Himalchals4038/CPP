@@ -22,19 +22,30 @@ Node* buildBST(vector<int> &vec){
     for(int val : vec) root = insert(root, val);
     return root;
 }
-bool validate(Node* root, Node*& prev){
-    if (root==NULL) return true;
-    if (!validate(root->left, prev)) return false;
-    if (prev!=NULL && root->data<=prev->data) return false;
-    prev = root;
-    return validate(root->right, prev);
-}
-bool isValidBST(Node* root){
+class Solution{
     Node* prev = NULL;
-    return validate(root, prev);
-}
+    Node* first = NULL;
+    Node* second = NULL;
+public:
+    void inOrder(Node* root){
+        if (root==NULL) return;
+        inOrder(root->left);
+        if (prev!=NULL && prev->data > root->data){
+            if (first==NULL) first = prev;
+            second = root;
+        }
+        prev = root;
+        inOrder(root->right);
+    }
+    void recoverTree(Node* root){
+        inOrder(root);
+        int temp = first->data;
+        first->data = second->data;
+        second->data = temp;
+    }
+};
 int main(){
-    vector<int> preorder = {1,2,-1,-1,3,4,-1,-1,5,7,-1,-1,6,-1,8,-1,-1};
-
+    vector<int> vec = {3,2,1,5,6,4};
+    Node* root = buildBST(vec);
     return 0;
 }

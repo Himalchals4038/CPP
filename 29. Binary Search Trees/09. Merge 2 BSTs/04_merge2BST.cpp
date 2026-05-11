@@ -32,17 +32,26 @@ vector<int> inOrder(Node* root){
     ans.insert(ans.end(), right.begin(), right.end());
     return ans;
 }
-Node* sortedArrayToBST(vector<int> &ans){
-    if (ans.empty()) return NULL;
-    function<Node*(int,int)> build = [&](int left, int right) -> Node*{
-        if (left > right) return NULL;
-        int mid = left+(right-left)/2;
-        Node* root = new Node(ans[mid]);
-        root->left = build(left,mid-1);
-        root->right = build(mid+1,right);
-        return root;
-    };
-    return build(0,ans.size()-1);
+Node* buildBST(vector<int> vec, int start, int end){
+    if (start>end) return NULL;
+    int mid = end + (start-end)/2;
+    Node* root = new Node(vec[mid]);
+    root->left = buildBST(vec, start, mid-1);
+    root->right = buildBST(vec, mid+1, end);
+    return root;
+}
+Node* merge2BST(Node* root1, Node* root2){
+    vector<int> vec1 = inOrder(root1);
+    vector<int> vec2 = inOrder(root2);
+    vector<int> merged;
+    int i=0, j=0;
+    while(i<vec1.size() &&j<vec2.size()){
+        if (vec1[i]<vec2[j]) merged.push_back(vec1[i++]);
+        else merged.push_back(vec2[j++]);
+    }
+    while(i<vec1.size()) merged.push_back(vec1[i++]);
+    while(j<vec2.size()) merged.push_back(vec2[j++]);
+    buildBST(merged, 0, merged.size()-1);
 }
 int main(){
     vector<int> preorder = {1,2,-1,-1,3,4,-1,-1,5,7,-1,-1,6,-1,8,-1,-1};
