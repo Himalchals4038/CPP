@@ -32,30 +32,30 @@ vector<int> inOrder(Node* root){
     ans.insert(ans.end(), right.begin(), right.end());
     return ans;
 }
-
-class Info {
+class Info{
 public:
-    int minVal;
-    int maxVal;
-    bool isBST;
-    int sum;
-};
-Info helper(Node* root, int &maxSum){
-    if (root == NULL) return {INT_MAX, INT_MIN, true, 0};
-    Info left = helper(root->left, maxSum);
-    Info right = helper(root->right, maxSum);
-    if (left.isBST && right.isBST && root->data > left.maxVal && root->data < right.minVal) {
-        int currSum = root->data + left.sum + right.sum;
-        maxSum = max(maxSum, currSum);
-        return {min(root->data, left.minVal), max(root->data, right.maxVal), true, currSum};
+    int min, max, size;
+    Info (int min, int max, int size){
+        this->min = min;
+        this->max = max;
+        this->size = size;
     }
-    return {0, 0, false, 0};
+};
+Info helper(Node* root){
+    if (root==NULL) return Info(INT_MAX, INT_MIN, 0);
+    Info left = helper(root->left);
+    Info right = helper(root->right);
+    if (left.max<root->data && right.min>root->data){
+        int currMin = min(root->data, left.min);
+        int currMax = max(root->data, right.max);
+        int currSize = left.size + right.size + 1;
+        return Info(currMin, currMax, currSize);
+    } 
+    return Info(INT_MIN, INT_MAX, max(left.size, right.size));
 }
-
-int maxSumBST(Node* root) {
-    int maxSum = 0;
-    helper(root, maxSum);
-    return maxSum;
+int largestBST(Node* root){
+    Info info = helper(root);
+    return info.size;
 }
 int main(){
     vector<int> vec = {3,2,1,5,6,4};
