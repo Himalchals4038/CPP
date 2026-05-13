@@ -5,12 +5,10 @@ public:
     int data;
     Node* left;
     Node* right;
-    Node* next;
     Node(int val){
         data = val;
         left = NULL;
         right = NULL;
-        next = NULL;
     }
 };
 Node* insert (Node* root, int val){
@@ -34,34 +32,44 @@ vector<int> inOrder(Node* root){
     ans.insert(ans.end(), right.begin(), right.end());
     return ans;
 }
-Node* connect(Node* root){
-    if (root==NULL || root->left==NULL) return root;
-    queue<Node*> q;
-    q.push(root);
-    q.push(NULL);
-    Node* prev = NULL;
-    while(!q.empty()){
-        Node* curr = q.front();
-        q.pop();
-        if (curr==NULL){
-            if (!q.empty()) q.push(NULL);
-            prev = NULL;
-            continue;
+vector<int> getPredSucc(Node* root, int key){
+    Node* curr = root;
+    Node* pred = NULL;
+    Node* succ = NULL;
+    while(curr){
+        if (curr->data == key){
+            if (curr->left){
+                Node* temp = curr->left;
+                while(temp->right) temp = temp->right;
+                pred = temp;
+            }
+            if (curr->right){
+                Node* temp = curr->right;
+                while(temp->left) temp = temp->left;
+                succ = temp;
+            }
+            break;
+        }
+        else if (curr->data>key){
+            succ = curr;
+            curr = curr->left;
         }
         else{
-            if (curr->left) q.push(curr->left);
-            if (curr->right) q.push(curr->right);
-            if (prev!=NULL) prev->next = curr;
+            pred = curr;
+            curr = curr->right;
         }
-        prev=curr;
     }
-    return root;
+    if (pred){
+        if (succ) return {pred->data, succ->data};
+        else return {pred->data, -1};
+    }
+    else{
+        if (succ) return {-1, succ->data};
+        else return {-1, -1};
+    }
 }
 int main(){
     vector<int> vec = {3,2,1,5,6,4};
     Node* root = buildBST(vec);
-    connect(root);
-    vector<int> ans = inOrder(root);
-    copy(ans.begin(), ans.end(), ostream_iterator<int>(cout, " "));
     return 0;
 }

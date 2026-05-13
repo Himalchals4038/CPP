@@ -5,12 +5,10 @@ public:
     int data;
     Node* left;
     Node* right;
-    Node* next;
     Node(int val){
         data = val;
         left = NULL;
         right = NULL;
-        next = NULL;
     }
 };
 Node* insert (Node* root, int val){
@@ -34,34 +32,30 @@ vector<int> inOrder(Node* root){
     ans.insert(ans.end(), right.begin(), right.end());
     return ans;
 }
-Node* connect(Node* root){
-    if (root==NULL || root->left==NULL) return root;
-    queue<Node*> q;
-    q.push(root);
-    q.push(NULL);
-    Node* prev = NULL;
-    while(!q.empty()){
-        Node* curr = q.front();
-        q.pop();
-        if (curr==NULL){
-            if (!q.empty()) q.push(NULL);
-            prev = NULL;
-            continue;
+class BSTIterator{
+public:
+    stack<Node*> st;
+    void storeLeftNodes(Node* root){
+        while(root){
+            st.push(root);
+            root = root->left;
         }
-        else{
-            if (curr->left) q.push(curr->left);
-            if (curr->right) q.push(curr->right);
-            if (prev!=NULL) prev->next = curr;
-        }
-        prev=curr;
     }
-    return root;
-}
+    BSTIterator(Node* root){
+        storeLeftNodes(root);
+    }
+    int next(){
+        Node* ans = st.top();
+        st.pop();
+        if (ans->right) storeLeftNodes(ans->right);
+        return ans->data;
+    }
+    bool hasNext(){
+        return st.size()>0;
+    }
+};
 int main(){
     vector<int> vec = {3,2,1,5,6,4};
     Node* root = buildBST(vec);
-    connect(root);
-    vector<int> ans = inOrder(root);
-    copy(ans.begin(), ans.end(), ostream_iterator<int>(cout, " "));
     return 0;
 }

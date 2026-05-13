@@ -5,12 +5,10 @@ public:
     int data;
     Node* left;
     Node* right;
-    Node* next;
     Node(int val){
         data = val;
         left = NULL;
         right = NULL;
-        next = NULL;
     }
 };
 Node* insert (Node* root, int val){
@@ -34,34 +32,37 @@ vector<int> inOrder(Node* root){
     ans.insert(ans.end(), right.begin(), right.end());
     return ans;
 }
-Node* connect(Node* root){
-    if (root==NULL || root->left==NULL) return root;
-    queue<Node*> q;
-    q.push(root);
-    q.push(NULL);
-    Node* prev = NULL;
-    while(!q.empty()){
-        Node* curr = q.front();
-        q.pop();
-        if (curr==NULL){
-            if (!q.empty()) q.push(NULL);
-            prev = NULL;
-            continue;
+vector<int> getPredSucc(Node* root, int key){
+    vector<int> ans(2, -1);
+    while(root){
+        if (root->data == key){
+            if (root->left){
+                Node* temp = root->left;
+                while(temp->right) temp = temp->right;
+                ans[0] = temp->data;
+            }
+            if (root->right){
+                Node* temp = root->right;
+                while(temp->left) temp = temp->left;
+                ans[1] = temp->data;
+            }
+            break;
+        }
+        else if (root->data>key){
+            ans[1] = root->data;
+            root = root->left;
         }
         else{
-            if (curr->left) q.push(curr->left);
-            if (curr->right) q.push(curr->right);
-            if (prev!=NULL) prev->next = curr;
+            ans[0] = root->data;
+            root = root->right;
         }
-        prev=curr;
     }
-    return root;
+    return ans;
 }
 int main(){
     vector<int> vec = {3,2,1,5,6,4};
     Node* root = buildBST(vec);
-    connect(root);
-    vector<int> ans = inOrder(root);
+    vector<int> ans = getPredSucc(root, 2);
     copy(ans.begin(), ans.end(), ostream_iterator<int>(cout, " "));
     return 0;
 }
