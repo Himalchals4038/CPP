@@ -22,24 +22,23 @@ public:
             cout<<endl;
         }
     }
-    void BreadthFirstSearch(int src){
+    void bfs(int src){
         queue<int> q;
-        bool* visited = new bool[V]{0};
+        vector<bool> vis(V, false);
         q.push(src);
-        visited[src] = true;
+        vis[src] = true;
         while(!q.empty()){
             int curr = q.front();
             q.pop();
             cout<<curr<<" ";
-            for (int nbr : l[curr]){
-                if (!visited[nbr]){
-                    q.push(nbr);
-                    visited[nbr] = true;
+            for (int nei : l[curr]){
+                if (!vis[nei]){
+                    q.push(nei);
+                    vis[nei] = true;
                 }
             }
         }
         cout<<endl;
-        delete [] visited;
     }
 };
 int main(){
@@ -49,7 +48,6 @@ int main(){
     g.addEdge(1,3);
     g.addEdge(3,2);
     g.addEdge(2,4);
-    g.printAdjList();
-    g.BreadthFirstSearch(0);
+    g.bfs(0);
     return 0;
 }

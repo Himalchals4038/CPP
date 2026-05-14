@@ -8,9 +8,6 @@ public:
         this->V = V;
         l = new list<int>[V];
     }
-    ~Graph(){
-        delete [] l;
-    }
     void addEdge(int u, int v){
         l[u].push_back(v);
         l[v].push_back(u);
@@ -22,18 +19,18 @@ public:
             cout<<endl;
         }
     }
-    void BreadthFirstSearch(int src){
-        queue<int> q;
+    void DepthFirstSearch(int src){
+        stack<int> st;
         bool* visited = new bool[V]{0};
-        q.push(src);
+        st.push(src);
         visited[src] = true;
-        while(!q.empty()){
-            int curr = q.front();
-            q.pop();
+        while(!st.empty()){
+            int curr = st.top();
+            st.pop();
             cout<<curr<<" ";
             for (int nbr : l[curr]){
                 if (!visited[nbr]){
-                    q.push(nbr);
+                    st.push(nbr);
                     visited[nbr] = true;
                 }
             }
@@ -47,9 +44,8 @@ int main(){
     g.addEdge(0,1);
     g.addEdge(1,2);
     g.addEdge(1,3);
-    g.addEdge(3,2);
+    g.addEdge(2,3);
     g.addEdge(2,4);
-    g.printAdjList();
-    g.BreadthFirstSearch(0);
+    g.DepthFirstSearch(0);
     return 0;
 }

@@ -41,6 +41,25 @@ public:
         cout<<endl;
         delete [] visited;
     }
+    void DepthFirstSearch(int src){
+        stack<int> st;
+        bool* visited = new bool[V]{0};
+        st.push(src);
+        visited[src] = true;
+        while(!st.empty()){
+            int curr = st.top();
+            st.pop();
+            cout<<curr<<" ";
+            for (int nbr : l[curr]){
+                if (!visited[nbr]){
+                    st.push(nbr);
+                    visited[nbr] = true;
+                }
+            }
+        }
+        cout<<endl;
+        delete [] visited;
+    }
 };
 int main(){
     Graph g(5);
@@ -49,7 +68,7 @@ int main(){
     g.addEdge(1,3);
     g.addEdge(3,2);
     g.addEdge(2,4);
-    g.printAdjList();
-    g.BreadthFirstSearch(0);
+    cout<<"Breadth First Search: "; g.BreadthFirstSearch(0);
+    cout<<"Depth First Search: "; g.DepthFirstSearch(0);
     return 0;
 }
