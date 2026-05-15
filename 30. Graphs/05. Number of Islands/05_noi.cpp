@@ -22,28 +22,28 @@ public:
             cout<<endl;
         }
     }
-    void dfsIslands(vector<vector<char>> &grid, int i, int j, int n, int m){
-        if (i<0 || i>=n || j<0 || j>=m || grid[i][j] == '0') return;
-        grid[i][j] = '0';
-        dfsIslands(grid, i + 1, j, n, m); //Down
-        dfsIslands(grid, i - 1, j, n, m); //Up
-        dfsIslands(grid, i, j + 1, n, m); //Right
-        dfsIslands(grid, i, j - 1, n, m); //Left
+    void dfsIslands(int i, int j, vector<vector<char>> &grid, vector<vector<bool>> &vis, int n, int m){
+        if (i<0 || i>=n || j<0 || j>=m || vis[i][j] || grid[i][j] == '0') return;
+        vis[i][j] = true;
+        dfsIslands(i+1, j, grid, vis, n, m);
+        dfsIslands(i-1, j, grid, vis, n, m);
+        dfsIslands(i, j+1, grid, vis, n, m);
+        dfsIslands(i, j-1, grid, vis, n, m);
     }
     int numIslands(vector<vector<char>> &grid){
-        if (grid.empty()) return 0;
+        int islands = 0;
         int n = grid.size();
         int m = grid[0].size();
-        int count = 0;
+        vector<vector<bool>> vis(n, vector<bool>(m, false));
         for (int i=0; i<n; i++){
             for (int j=0; j<m; j++){
-                if (grid[i][j]=='1'){
-                    count++;
-                    dfsIslands(grid, i, j, n, m);
+                if (!vis[i][j] && grid[i][j] == '1'){
+                    dfsIslands(i, j, grid, vis, n, m);
+                    islands++;
                 }
             }
         }
-        return count;
+        return islands;
     }
 };
 int main(){

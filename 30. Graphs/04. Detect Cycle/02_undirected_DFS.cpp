@@ -23,44 +23,6 @@ public:
             cout<<endl;
         }
     }
-    void BreadthFirstSearch(int src){
-        queue<int> q;
-        bool* visited = new bool[V]{0};
-        q.push(src);
-        visited[src] = true;
-        while(!q.empty()){
-            int curr = q.front();
-            q.pop();
-            cout<<curr<<" ";
-            for (int nbr : l[curr]){
-                if (!visited[nbr]){
-                    q.push(nbr);
-                    visited[nbr] = true;
-                }
-            }
-        }
-        cout<<endl;
-        delete [] visited;
-    }
-    void DepthFirstSearch(int src){
-        stack<int> st;
-        bool* visited = new bool[V]{0};
-        st.push(src);
-        visited[src] = true;
-        while(!st.empty()){
-            int curr = st.top();
-            st.pop();
-            cout<<curr<<" ";
-            for (int nbr : l[curr]){
-                if (!visited[nbr]){
-                    st.push(nbr);
-                    visited[nbr] = true;
-                }
-            }
-        }
-        cout<<endl;
-        delete [] visited;
-    }
     bool isCycleUndirDFS(int src, int par, vector<bool> &vis){
         vis[src] = true;
         list<int> neighbors = l[src];
