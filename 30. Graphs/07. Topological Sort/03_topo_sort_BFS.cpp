@@ -42,7 +42,7 @@ public:
         vector<int> indegree(V, 0);
         for (int i=0; i<V; i++) for (int nbr : l[i]) indegree[nbr]++;
         queue<int> q;
-        for (int i=0; i<V; i++) if (indegree[i] == 0) q.push(i);
+        for (int i=0; i<V; i++) if (indegree[i]==0) q.push(i);
         vector<int> result;
         while(!q.empty()){
             int curr = q.front();
