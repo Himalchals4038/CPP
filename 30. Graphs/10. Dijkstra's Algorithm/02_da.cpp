@@ -9,22 +9,24 @@ public:
         this->wt = wt;
     }
 };
-void dijkstra(vector<vector<Edge>> &g, int src){
+void dijkstra(const vector<vector<Edge>> &g, int src){
     int n = g.size();
     vector<int> dist(n, INT_MAX);
     dist[src] = 0;
-    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
-    pq.push({0, src});
-    while(!pq.empty()){
-        auto [currDist, u] = pq.top();
-        pq.pop();
-        if (currDist>dist[u]) continue;
-        for (Edge &g : g[u]){
-            int v = g.v;
-            int wt = g.wt;
-            if (dist[u]+wt < dist[v]){
-                dist[v] = dist[u]+wt;
-                pq.push({dist[v], v});
+    set<pair<int, int>> st;
+    st.insert({0, src});
+    while(!st.empty()){
+        auto it = st.begin();
+        int currDist = it->first;
+        int u = it->second;
+        st.erase(it);
+        for (const Edge &edge : g[u]){
+            int v = edge.v;
+            int wt = edge.wt;
+            if (currDist+wt < dist[v]){
+                if (dist[v]!=INT_MAX) st.erase({dist[v], v});
+                dist[v] = currDist+wt;
+                st.insert({dist[v], v});
             }
         }
     }

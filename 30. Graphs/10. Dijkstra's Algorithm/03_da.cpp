@@ -16,15 +16,12 @@ void dijkstra(vector<vector<Edge>> &g, int src){
     priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
     pq.push({0, src});
     while(!pq.empty()){
-        auto [currDist, u] = pq.top();
+        int u = pq.top().second;
         pq.pop();
-        if (currDist>dist[u]) continue;
-        for (Edge &g : g[u]){
-            int v = g.v;
-            int wt = g.wt;
-            if (dist[u]+wt < dist[v]){
-                dist[v] = dist[u]+wt;
-                pq.push({dist[v], v});
+        for (Edge e : g[u]){
+            if (dist[e.v] > dist[u]+e.wt){
+                dist[e.v] = dist[u]+e.wt;
+                pq.push({dist[e.v], e.v});
             }
         }
     }
