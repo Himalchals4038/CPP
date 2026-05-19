@@ -2,7 +2,40 @@
 using namespace std;
 
 int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k){
-    
+    vector<pair<int, int>> graph[n];
+    for (int i=0; i<flights.size(); i++){
+        int u = flights[i][0];
+        int v = flights[i][1];
+        int wt = flights[i][2];
+        graph[u].push_back({v, wt});
+    }
+
+    queue<pair<int, pair<int, int>>> q; //node, (cost, stops)
+    q.push({src, {0, -1}});
+    vector<int> dist(n, INT_MAX);
+    dist[src] = 0;
+
+    while(!q.empty()){
+        auto val = q.front();
+        int node = val.first;
+        int cost = val.second.first;
+        int stops = val.second.second;
+        q.pop();
+
+        for (auto nbr : graph[node]){
+            int v = nbr.first;
+            int wt = nbr.second;
+            if (cost+wt<dist[v] && stops<k){
+                dist[v] = cost+wt;
+                q.push({v, {cost+wt, stops+1}});
+            }
+            else if (cost+wt<dist[v] && stops==k && v==dst){
+                dist[v] = cost+wt;
+            }
+        }
+    }
+    if (dist[dst] == INT_MAX) return -1;
+    return dist[dst];
 }
 
 int main(){
