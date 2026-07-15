@@ -5,11 +5,11 @@ vector<int> threeSum(vector<int> &vec, int target){
     if (n < 3) return {};
     sort(vec.begin(), vec.end());
 
-    for (int i = 0; i < n - 2; i++){
+    for (int i=0; i < n-2; i++){
         if (vec[i] > target && vec[i] > 0) break;
-        if (i > 0 && vec[i] == vec[i-1]) continue;
+        if (i>0 && vec[i] == vec[i-1]) continue;
 
-        int left = i + 1, right = n - 1;
+        int left = i+1, right = n-1;
         while (left < right){
             long long sum = (long long)vec[i] + vec[left] + vec[right];
             if (sum == target) return {vec[i], vec[left], vec[right]};
@@ -19,7 +19,6 @@ vector<int> threeSum(vector<int> &vec, int target){
     }
     return {};
 }
-
 int main(){
     vector<int> vec1 ={-1, 0, 1, 2, -1, -4};
     int target = 0;
