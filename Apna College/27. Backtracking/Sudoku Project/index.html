@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudoku Backtracking Simulator & Visualizer</title>
+    <meta name="description" content="Interactive step-by-step simulation of the Sudoku Solver backtracking algorithm using bitmask optimization.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide / FontAwesome SVG Icons via CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-theme">
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-brand">
+                <div class="logo-icon"><i class="fa-solid fa-grid-2"></i></div>
+                <div>
+                    <h1>Sudoku Backtracking Visualizer</h1>
+                    <p class="subtitle">Interactive Step-by-Step Algorithm Simulator (Bitmask Optimized)</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button id="soundToggleBtn" class="btn btn-icon" title="Toggle Sound Effects">
+                    <i class="fa-solid fa-volume-high"></i>
+                </button>
+                <button id="themeToggleBtn" class="btn btn-icon" title="Toggle Light/Dark Theme">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content Layout -->
+        <main class="main-layout">
+            <!-- Left Section: Sudoku Board & Cell Keyboard -->
+            <section class="board-section glass-card">
+                <div class="board-header">
+                    <div class="badge badge-info" id="statusBadge">
+                        <span class="status-dot"></span>
+                        <span id="statusText">Ready</span>
+                    </div>
+                    <div class="progress-container">
+                        <span class="progress-label">Solved Cells: <strong id="progressText">0 / 81</strong></span>
+                        <div class="progress-bar-bg">
+                            <div class="progress-bar-fill" id="progressBar"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 9x9 Sudoku Grid Container -->
+                <div class="sudoku-grid-wrapper">
+                    <div class="sudoku-grid" id="sudokuGrid">
+                        <!-- Generated dynamically by script.js (81 cells grouped into 9 3x3 blocks) -->
+                    </div>
+                </div>
+
+                <!-- Touch / Virtual Numpad -->
+                <div class="numpad-container">
+                    <span class="numpad-title">Quick Input:</span>
+                    <div class="numpad-keys">
+                        <button class="num-btn" data-val="1">1</button>
+                        <button class="num-btn" data-val="2">2</button>
+                        <button class="num-btn" data-val="3">3</button>
+                        <button class="num-btn" data-val="4">4</button>
+                        <button class="num-btn" data-val="5">5</button>
+                        <button class="num-btn" data-val="6">6</button>
+                        <button class="num-btn" data-val="7">7</button>
+                        <button class="num-btn" data-val="8">8</button>
+                        <button class="num-btn" data-val="9">9</button>
+                        <button class="num-btn num-erase" data-val="clear" title="Erase Cell"><i class="fa-solid fa-eraser"></i></button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Right Section: Controls, Analytics & Logs -->
+            <section class="control-section">
+                <!-- Preset Puzzles Card -->
+                <div class="glass-card panel-card">
+                    <div class="panel-title">
+                        <i class="fa-solid fa-puzzle-piece"></i> Preset Puzzles
+                    </div>
+                    <div class="preset-controls">
+                        <select id="presetSelect" class="form-select">
+                            <option value="easy">Easy Puzzle (38 Givens)</option>
+                            <option value="medium" selected>Medium Puzzle (30 Givens)</option>
+                            <option value="hard">Hard Puzzle (24 Givens)</option>
+                            <option value="expert">Expert / AI Escargot (17 Givens)</option>
+                            <option value="unsolvable">Unsolvable Demo (Conflict Test)</option>
+                            <option value="empty">Blank Grid (Custom Input)</option>
+                        </select>
+                        <button id="loadPresetBtn" class="btn btn-secondary">
+                            <i class="fa-solid fa-rotate-right"></i> Load
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Simulation Controls Card -->
+                <div class="glass-card panel-card">
+                    <div class="panel-title">
+                        <i class="fa-solid fa-sliders"></i> Visualizer Controls
+                    </div>
+                    <div class="action-buttons">
+                        <button id="startBtn" class="btn btn-primary">
+                            <i class="fa-solid fa-play"></i> Visualize
+                        </button>
+                        <button id="pauseBtn" class="btn btn-warning" disabled>
+                            <i class="fa-solid fa-pause"></i> Pause
+                        </button>
+                        <button id="stepBtn" class="btn btn-info">
+                            <i class="fa-solid fa-forward-step"></i> Step
+                        </button>
+                        <button id="instantSolveBtn" class="btn btn-success">
+                            <i class="fa-solid fa-bolt"></i> Instant
+                        </button>
+                        <button id="resetBtn" class="btn btn-outline">
+                            <i class="fa-solid fa-arrow-rotate-left"></i> Reset
+                        </button>
+                        <button id="clearBtn" class="btn btn-danger-outline">
+                            <i class="fa-solid fa-trash-can"></i> Clear
+                        </button>
+                    </div>
+
+                    <div class="speed-control">
+                        <div class="speed-label">
+                            <span><i class="fa-solid fa-gauge-high"></i> Delay: <strong id="speedVal">50ms</strong></span>
+                            <span class="speed-preset-hints">Fast &larr; &rarr; Slow</span>
+                        </div>
+                        <input type="range" id="speedSlider" min="1" max="500" value="50" class="range-slider">
+                    </div>
+                </div>
+
+                <!-- Execution Stats Dashboard Card -->
+                <div class="glass-card panel-card">
+                    <div class="panel-title">
+                        <i class="fa-solid fa-chart-simple"></i> Execution Statistics
+                    </div>
+                    <div class="stats-grid">
+                        <div class="stat-box">
+                            <span class="stat-value" id="statSteps">0</span>
+                            <span class="stat-label">Total Steps</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-value" id="statBacktracks">0</span>
+                            <span class="stat-label">Backtracks</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-value" id="statTime">0.0s</span>
+                            <span class="stat-label">Time Elapsed</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-value" id="statDepth">0</span>
+                            <span class="stat-label">Recursion Depth</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bitmask / Candidate Inspector Panel -->
+                <div class="glass-card panel-card">
+                    <div class="panel-title">
+                        <i class="fa-solid fa-microchip"></i> Constraint / Bitmask Inspector
+                    </div>
+                    <div class="inspector-details" id="inspectorDetails">
+                        <div class="inspector-placeholder">
+                            Click any cell or run visualizer to inspect available candidates & bitmask constraints.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Execution Console Log Card -->
+                <div class="glass-card panel-card log-panel">
+                    <div class="panel-title log-header">
+                        <span><i class="fa-solid fa-terminal"></i> Algorithm Log</span>
+                        <button id="clearLogBtn" class="btn-text">Clear</button>
+                    </div>
+                    <div class="log-console" id="logConsole">
+                        <div class="log-entry log-info">[SYSTEM] Visualizer initialized. Select a puzzle or input numbers to begin.</div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <p>Sudoku Solver Backtracking Algorithm Simulator &bull; Implemented with Bitmask Optimization $O(1)$</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
