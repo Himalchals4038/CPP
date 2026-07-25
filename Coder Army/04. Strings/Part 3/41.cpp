@@ -17,6 +17,7 @@ int longestPrefixSuffix(string s){
             else pre = lps[pre-1];
         }
     }
+    return lps[s.length()-1];
 }
 int main(){
     string s1 = "abab";
