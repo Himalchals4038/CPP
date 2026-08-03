@@ -11,7 +11,7 @@ int helper(vector<int> &vec, int target){
     return targetSumRepeat(vec, vec.size(), 0, target);
 }
 int main(){
-    vector<int> vec = {1, 2, 3, 4};
-    cout<<helper(vec, 4);
+    vector<int> vec = {1, 2, 3, 4, 5, 6, 7};
+    cout<<helper(vec, 10);
     return 0;
 }
